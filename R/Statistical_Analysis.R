@@ -47,15 +47,37 @@ levels(m36_2class$class_e500)  <- c("1", "1", "2", "2")
 levels(m36_2class$class_e1500) <- c("1", "1", "2", "2")
 levels(m36_2class$class_e500)
 
-t.test(GIA_SS         ~ class_e500, data=m36_2class, mu=0, alt="two.sided", conf=0.95, var.eq=F, paired=F)
-t.test(Proc_Spd_SS    ~ class_e500, data=m36_2class, mu=0, alt="two.sided", conf=0.95, var.eq=F, paired=F)
-t.test(Working_Mem_SS ~ class_e500, data=m36_2class, mu=0, alt="two.sided", conf=0.95, var.eq=F, paired=F)
-t.test(Broad_Attn_SS  ~ class_e500, data=m36_2class, mu=0, alt="two.sided", conf=0.95, var.eq=F, paired=F)
+t.test(GIA_SS         ~ class_e500, data = m36_2class, mu = 0, alt = "two.sided", conf = 0.95, var.eq = F, paired = F)
+t.test(Proc_Spd_SS    ~ class_e500, data = m36_2class, mu = 0, alt = "two.sided", conf = 0.95, var.eq = F, paired = F)
+t.test(Working_Mem_SS ~ class_e500, data = m36_2class, mu = 0, alt = "two.sided", conf = 0.95, var.eq = F, paired = F)
+t.test(Broad_Attn_SS  ~ class_e500, data = m36_2class, mu = 0, alt = "two.sided", conf = 0.95, var.eq = F, paired = F)
 
 t.test(cbind(GIA_SS, Proc_Spd_SS, Working_Mem_SS, Broad_Attn_SS) ~ class_e1500, data=m36_2class, 
        mu=0, alt="two.sided", conf=0.95, var.eq=F, paired=F)
 
-##---------------------- Kruskal–Wallis (Non-parametric alternative to one-way ANOVA test) ---------------------------------------------
+##---------------------- Kruskal–Wallis test (Non-parametric alternative to one-way ANOVA test) ----------------------------------------
+
+kruskal.test(GIA_SS ~ class_e500, data = m36)
+kruskal.test(Proc_Spd_SS ~ class_e500, data = m36)
+kruskal.test(Working_Mem_SS ~ class_e500, data = m36)
+kruskal.test(Broad_Attn_SS ~ class_e500, data = m36)
+pairwise.wilcox.test(m36$Broad_Attn_SS, m36$class_e500, p.adjust.method = "BH")
+
+##---------------------- Wilcoxon rank sum test (Non-parametric alternative to t-test) -------------------------------------------------
+
+wilcox.test(x, y, alternative = "two.sided")
+
+res <- wilcox.test(GIA_SS ~ class_e500, data = m36_2class, exact = FALSE)
+res
+res$p.value
+
+wilcox.test(GIA_SS ~ class_e500, data = m36_2class, exact = FALSE)
+wilcox.test(Proc_Spd_SS ~ class_e500, data = m36_2class, exact = FALSE)
+wilcox.test(Working_Mem_SS ~ class_e500, data = m36_2class, exact = FALSE)
+wilcox.test(Broad_Attn_SS ~ class_e500, data = m36_2class, exact = FALSE)
+
+
+
 
 
 
