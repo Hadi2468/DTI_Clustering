@@ -43,7 +43,8 @@ LF_500_r[1:10, 1:10]
 LF_1500_r[1:10, 1:10]
 LF_r <- cbind(LF_500_r[1], LF_1500_r)
 LF_r[1:10, 1:10]
-save(LF_r,file = "LF_r.Rda")
-load(file="LF_r.Rda")
+save(LF_r,file = "../../Data/data_random_1/LF/LF_r.Rda")
+load(file="../../Data/data_random_1/LF/LF_r.Rda")
 dim(LF_r)
 class(LF_r)
+write.csv(LF_r, "../../Data/data_random_1/LF/LF_r.csv", row.names = FALSE)
