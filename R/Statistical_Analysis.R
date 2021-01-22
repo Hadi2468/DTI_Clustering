@@ -5,24 +5,24 @@ library(ggplot2)
 getwd()
 
 ##---------------------- Data Loading --------------------------------------------------------------------------------------------------
-baseline <- read.csv("../../Data/data_random_1/Neurocognitive_Joins/df_base_all_scores.csv")
-m36      <- read.csv("../../Data/data_random_1/Neurocognitive_Joins/df_m36_all_scores.csv")
+baseline <- read.csv("../../Data/data_random_1/LF_Joins/LF_r_base_total.csv")
+m36base  <- read.csv("../../Data/data_random_1/LF_Joins/LF_r_m36base_total.csv")
 
-baseline$class_e500  <- factor(baseline$class_e500)
-baseline$class_e1500 <- factor(baseline$class_e1500)
-m36$class_e500       <- factor(m36$class_e500)
-m36$class_e1500      <- factor(m36$class_e1500)
+baseline$Cluster_SS_e500  <- factor(baseline$Cluster_SS_e500)
+baseline$Cluster_SS_e1500 <- factor(baseline$Cluster_SS_e1500)
+m36base$Cluster_SS_e500   <- factor(m36base$Cluster_SS_e500)
+m36base$Cluster_SS_e1500  <- factor(m36base$Cluster_SS_e1500)
 
-levels(m36$class_e500)
-is.factor(m36$class_e500)
-m36$class_e500
-head(m36)
-dim(m36)
+levels(m36base$Cluster_SS_e500)
+is.factor(m36base$Cluster_SS_e500)
+m36base$Cluster_SS_e500
+m36base[1:5, 1:10]
+dim(m36base)
 
-baseline$class_e500  <- ordered(baseline$class_e500,  levels=levels(baseline$class_e500))
-baseline$class_e1500 <- ordered(baseline$class_e1500, levels=levels(baseline$class_e1500))
-m36$class_e500       <- ordered(m36$class_e500,  levels=levels(m36$class_e500))
-m36$class_e1500      <- ordered(m36$class_e1500, levels=levels(m36$class_e1500))
+baseline$Cluster_SS_e500  <- ordered(baseline$Cluster_SS_e500,  levels=levels(baseline$Cluster_SS_e500))
+baseline$Cluster_SS_e1500 <- ordered(baseline$Cluster_SS_e1500, levels=levels(baseline$Cluster_SS_e1500))
+m36base$Cluster_SS_e500   <- ordered(m36base$Cluster_SS_e500,   levels=levels(m36base$Cluster_SS_e500))
+m36base$Cluster_SS_e1500  <- ordered(m36base$Cluster_SS_e1500,  levels=levels(m36base$Cluster_SS_e1500))
 
 ##---------------------- Statistics ----------------------------------------------------------------------------------------------------
 group_by(m36, class_e500) %>%

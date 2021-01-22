@@ -39,9 +39,10 @@ colnames(LF_1500_r) <- c("epoch_1500", colnames(df_1500))
 LF_1500_r[1:10, 1:10]
 
 ##---------------------- Mix together --------------------------------------------------------------------------------------------------
+LF_1500_py[1:10, 1:10]
 LF_500_r[1:10, 1:10]
 LF_1500_r[1:10, 1:10]
-LF_r <- cbind(LF_500_r[1], LF_1500_r)
+LF_r <- cbind(LF_1500_py[1], LF_500_r[1], LF_1500_r)
 LF_r[1:10, 1:10]
 save(LF_r,file = "../../Data/data_random_1/LF/LF_r.Rda")
 load(file="../../Data/data_random_1/LF/LF_r.Rda")
