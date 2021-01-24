@@ -25,56 +25,54 @@ m36base$Cluster_SS_e500   <- ordered(m36base$Cluster_SS_e500,   levels=levels(m3
 m36base$Cluster_SS_e1500  <- ordered(m36base$Cluster_SS_e1500,  levels=levels(m36base$Cluster_SS_e1500))
 
 ##---------------------- Statistics ----------------------------------------------------------------------------------------------------
-group_by(m36, class_e500) %>%
-  summarise(count = n(), mean = mean(m36$GIA_SS, na.rm=TRUE), sd = sd(m36$GIA_SS, na.rm=TRUE))
+group_by(m36base, Cluster_SS_e1500) %>%
+  summarise(count = n(), mean = mean(m36base$GIA_SS, na.rm=TRUE), sd = sd(m36base$GIA_SS, na.rm=TRUE))
 
 ##---------------------- One-way ANOVA test --------------------------------------------------------------------------------------------
-summary(aov(cbind(GIA_SS, Proc_Spd_SS, Working_Mem_SS, Broad_Attn_SS) ~ class_e500 + class_e1500, data = baseline))
-summary(aov(cbind(GIA_SS, Proc_Spd_SS, Working_Mem_SS, Broad_Attn_SS) ~ class_e500 + class_e1500, data = m36))
+summary(aov(cbind(GIA_SS, Proc_Spd_SS, Working_Mem_SS, Broad_Attn_SS) ~ Cluster_SS_e500 + Cluster_SS_e1500, data = baseline))
+summary(aov(cbind(GIA_SS, Proc_Spd_SS, Working_Mem_SS, Broad_Attn_SS) ~ Cluster_SS_e500 + Cluster_SS_e1500, data = m36base))
 
-res.aov <- aov(cbind(GIA_SS, Proc_Spd_SS, Working_Mem_SS, Broad_Attn_SS) ~ class_e500 + class_e1500, data = m36)
+res.aov <- aov(cbind(GIA_SS, Proc_Spd_SS, Working_Mem_SS, Broad_Attn_SS) ~ Cluster_SS_e500 + Cluster_SS_e1500, data = m36base)
 summary(res.aov)
 
 ##---------------------- Box Plot ------------------------------------------------------------------------------------------------------
-qplot(factor(class_e500), GIA_SS, data=m36, geom='boxplot', fill=factor(class_e500))
-boxplot(GIA_SS~as.factor(class_e500), data=m36)
-ggplot(m36, aes(x=class_e500, y=GIA_SS)) + geom_boxplot(color="blue", fill="pink", size=1)
+qplot(factor(Cluster_SS_e1500), GIA_SS, data=m36base, geom='boxplot', fill=factor(Cluster_SS_e1500))
+boxplot(GIA_SS~as.factor(Cluster_SS_e500), data=m36base)
+ggplot(m36base, aes(x=Cluster_SS_e500, y=GIA_SS)) + geom_boxplot(color="blue", fill="pink", size=1)
 
 ##---------------------- t test --------------------------------------------------------------------------------------------------------
 
-m36_2class <- m36
-levels(m36_2class$class_e500)  <- c("1", "1", "2", "2")
-levels(m36_2class$class_e1500) <- c("1", "1", "2", "2")
-levels(m36_2class$class_e500)
+m36_2class <- m36base
+levels(m36_2class$Cluster_SS_e500)  <- c("1", "1", "2", "2")
+levels(m36_2class$Cluster_SS_e1500) <- c("1", "1", "2", "2")
+levels(m36_2class$Cluster_SS_e500)
 
-t.test(GIA_SS         ~ class_e500, data = m36_2class, mu = 0, alt = "two.sided", conf = 0.95, var.eq = F, paired = F)
-t.test(Proc_Spd_SS    ~ class_e500, data = m36_2class, mu = 0, alt = "two.sided", conf = 0.95, var.eq = F, paired = F)
-t.test(Working_Mem_SS ~ class_e500, data = m36_2class, mu = 0, alt = "two.sided", conf = 0.95, var.eq = F, paired = F)
-t.test(Broad_Attn_SS  ~ class_e500, data = m36_2class, mu = 0, alt = "two.sided", conf = 0.95, var.eq = F, paired = F)
+t.test(GIA_SS         ~ Cluster_SS_e1500, data = m36_2class, mu = 0, alt = "two.sided", conf = 0.95, var.eq = F, paired = F)
+t.test(Proc_Spd_SS    ~ Cluster_SS_e1500, data = m36_2class, mu = 0, alt = "two.sided", conf = 0.95, var.eq = F, paired = F)
+t.test(Working_Mem_SS ~ Cluster_SS_e1500, data = m36_2class, mu = 0, alt = "two.sided", conf = 0.95, var.eq = F, paired = F)
+t.test(Broad_Attn_SS  ~ Cluster_SS_e1500, data = m36_2class, mu = 0, alt = "two.sided", conf = 0.95, var.eq = F, paired = F)
 
-t.test(cbind(GIA_SS, Proc_Spd_SS, Working_Mem_SS, Broad_Attn_SS) ~ class_e1500, data=m36_2class, 
+t.test(cbind(GIA_SS, Proc_Spd_SS, Working_Mem_SS, Broad_Attn_SS) ~ Cluster_SS_e500, data=m36_2class, 
        mu=0, alt="two.sided", conf=0.95, var.eq=F, paired=F)
 
 ##---------------------- Kruskal–Wallis test (Non-parametric alternative to one-way ANOVA test) ----------------------------------------
 
-kruskal.test(GIA_SS ~ class_e500, data = m36)
-kruskal.test(Proc_Spd_SS ~ class_e500, data = m36)
-kruskal.test(Working_Mem_SS ~ class_e500, data = m36)
-kruskal.test(Broad_Attn_SS ~ class_e500, data = m36)
-pairwise.wilcox.test(m36$Broad_Attn_SS, m36$class_e500, p.adjust.method = "BH")
+kruskal.test(GIA_SS ~ Cluster_SS_e1500, data = m36base)
+kruskal.test(Proc_Spd_SS ~ Cluster_SS_e1500, data = m36base)
+kruskal.test(Working_Mem_SS ~ Cluster_SS_e1500, data = m36base)
+kruskal.test(Broad_Attn_SS ~ Cluster_SS_e1500, data = m36base)
+pairwise.wilcox.test(m36base$Broad_Attn_SS, m36base$Cluster_SS_e1500, p.adjust.method = "BH")
 
 ##---------------------- Wilcoxon rank sum test (Non-parametric alternative to t-test) -------------------------------------------------
 
-wilcox.test(x, y, alternative = "two.sided")
-
-res <- wilcox.test(GIA_SS ~ class_e500, data = m36_2class, exact = FALSE)
+res <- wilcox.test(GIA_SS ~ Cluster_SS_e500, data = m36_2class, alternative = "two.sided", exact = FALSE)
 res
 res$p.value
 
-wilcox.test(GIA_SS ~ class_e500, data = m36_2class, exact = FALSE)
-wilcox.test(Proc_Spd_SS ~ class_e500, data = m36_2class, exact = FALSE)
-wilcox.test(Working_Mem_SS ~ class_e500, data = m36_2class, exact = FALSE)
-wilcox.test(Broad_Attn_SS ~ class_e500, data = m36_2class, exact = FALSE)
+wilcox.test(GIA_SS ~ Cluster_SS_e1500, data = m36_2class, exact = FALSE)
+wilcox.test(Proc_Spd_SS ~ Cluster_SS_e1500, data = m36_2class, exact = FALSE)
+wilcox.test(Working_Mem_SS ~ Cluster_SS_e1500, data = m36_2class, exact = FALSE)
+wilcox.test(Broad_Attn_SS ~ Cluster_SS_e1500, data = m36_2class, exact = FALSE)
 
 
 
