@@ -1,7 +1,8 @@
 library(sparcl)
+getwd()    # setwd("/Users/shossein/GitHub/DTI_Clustering/R")
 
 ##---------------------- K_Means --------------------------------------------------------------------------_____------------------------
-getwd()
+
 master_score <- read.csv("../../Data/data_random_1/Neurocognitive_Joins/master_score.csv")
 LF_1500 <- read.csv("../../Data/data_random_1/LF/LF_1500_py.csv")
 LF <- LF_1500[ , -c(ID, class_e1500)]    # raw Latent Features
@@ -43,4 +44,3 @@ master_Kmeans["Kmeans_Sparse_4"] <- km.out[[1]]$Cs
 write.csv(master_Kmeans, "../../Data/data_random_1/LF_Joins/master_kmeans.csv", row.names = FALSE)
 master_data <- merge(x = master_Kmeans, y = master_score, by = "ID")
 write.csv(master_data, "../../Data/data_random_1/LF_Joins/master_data.csv", row.names = FALSE)
-
