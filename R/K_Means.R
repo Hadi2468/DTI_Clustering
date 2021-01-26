@@ -3,8 +3,9 @@ getwd()    # setwd("/Users/shossein/GitHub/DTI_Clustering/R")
 
 ##---------------------- K_Means --------------------------------------------------------------------------_____------------------------
 
-master_score <- read.csv("../../Data/data_random_1/Neurocognitive_Joins/master_score.csv")
+master_score <- read.csv("../../Data/data_random_1/Neurocognitive_Joins/master_score_union.csv")
 master_kmeans <- read.csv("../../Data/data_random_1/LF_Joins/master_kmeans.csv")
+
 LF_1500 <- read.csv("../../Data/data_random_1/LF/LF_1500_py.csv")
 LF <- LF_1500[-c(1:2)]    # raw Latent Features
 dim(LF)
@@ -65,7 +66,11 @@ master_kmeans["Kmeans_Sparse_4"] <- km.out[[1]]$Cs
 
 ##---------------------- Save data -----------------------------------------------------------------------------------------------------
 
+master_score <- read.csv("../../Data/data_random_1/Neurocognitive_Joins/master_score_union.csv")
+master_kmeans <- read.csv("../../Data/data_random_1/LF_Joins/master_kmeans.csv")
+
 master_data <- merge(x = master_kmeans, y = master_score, by = "ID")
-# colnames(master_data)[11] <- "Proc_Spd_diff"
-# colnames(master_data)[15] <- "Proc_Spd_diff"
+master_data_union <- merge(x = master_kmeans, y = master_score, by = "ID")
+
 write.csv(master_data, "../../Data/data_random_1/LF_Joins/master_data.csv", row.names = FALSE)
+write.csv(master_data_union, "../../Data/data_random_1/LF_Joins/master_data_union.csv", row.names = FALSE)

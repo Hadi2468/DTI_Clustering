@@ -5,7 +5,9 @@ getwd()    # setwd("/Users/shossein/GitHub/DTI_Clustering/R")
 
 ##---------------------- Loading master data -------------------------------------------------------------------------------------------
 
-master_data <- read.csv("../../Data/data_random_1/LF_Joins/master_data.csv")
+master_data <- read.csv("../../Data/data_random_1/LF_Joins/master_data_union.csv")
+master_data[master_data$Kmeans_4 != master_data$Kmeans_Sparse_4, ]
+master_data[master_data$Kmeans_2 != master_data$Kmeans_Sparse_2, ]
 
 master_data$Kmeans_2  <- factor(master_data$Kmeans_2)
 master_data$Kmeans_4  <- factor(master_data$Kmeans_4)
@@ -153,7 +155,7 @@ ggplot(master_data, aes(x = Kmeans_Sparse_4, y = Working_Mem_diff, color = Kmean
   theme(legend.position = "none", plot.title = element_text(hjust = 0.5)) + coord_cartesian(ylim = c(-50, 30))
 # Box-plot 15
 ggplot(master_data, aes(x = Kmeans_4, y = Broad_Attn_diff, color = Kmeans_4, fill = Kmeans_4)) + 
-  ggtitle("K-Means (36 months - baseline)") + xlab("\n Kruskal–Wallis test,   p-value = 0.7357") + ylab("Broad Attention") + 
+  ggtitle("K-Means (36 months - baseline)") + xlab("\n Kruskal–Wallis test,   p-value = 0.9205") + ylab("Broad Attention") + 
   geom_boxplot(size = 0.8, outlier.size = 3) + scale_fill_drsimonj(palette = "cool") + scale_color_drsimonj(palette = "hot") +
   theme(legend.position = "none", plot.title = element_text(hjust = 0.5)) + coord_cartesian(ylim = c(-50, 30))
 # Box-plot 16
