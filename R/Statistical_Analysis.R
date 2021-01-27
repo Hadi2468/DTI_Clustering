@@ -299,3 +299,19 @@ ggplot(master_data, aes(x = Kmeans_Sparse_2, y = Broad_Attn_diff, color = Kmeans
   geom_boxplot(size = 0.8, outlier.size = 3) + scale_fill_drsimonj(palette = "cool") + scale_color_drsimonj(palette = "hot") +
   theme(legend.position = "none", plot.title = element_text(hjust = 0.5)) + coord_cartesian(ylim = c(-50, 30))
 
+
+
+
+
+
+
+new_data <- master_data
+new_data
+
+new_data_1 <- new_data[which(new_data$Kmeans_Sparse_4 == 1 | new_data$Kmeans_Sparse_4 == 4),]
+wilcox.test(Proc_Spd_diff    ~ Kmeans_Sparse_4, data = new_data_1, exact = FALSE)
+ggplot(new_data_1, aes(x = Kmeans_Sparse_4, y = Proc_Spd_diff, color = Kmeans_Sparse_4, fill = Kmeans_Sparse_4)) + 
+  ggtitle("K-Means Sparse (36 months - baseline)") + xlab("\n Wilcoxon-rank-sum test,   p-value = 0.1331") + ylab("Process Speed") + 
+  geom_boxplot(size = 0.8, outlier.size = 3) + scale_fill_drsimonj(palette = "cool") + scale_color_drsimonj(palette = "hot") +
+  theme(legend.position = "none", plot.title = element_text(hjust = 0.5)) + coord_cartesian(ylim = c(-50, 60))
+

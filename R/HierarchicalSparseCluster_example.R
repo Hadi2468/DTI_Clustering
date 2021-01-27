@@ -21,9 +21,7 @@ print(dim(x))
 
 
 
-x <- npyLoad("L4.npy")
-dim(x)
-plot(x)
+
 # Do tuning parameter selection for sparse hierarchical clustering
 perm.out <- HierarchicalSparseCluster.permute(x, wbounds=c(1.5, 2:6), nperms=5)
 print(perm.out)
